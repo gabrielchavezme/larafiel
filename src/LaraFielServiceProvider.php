@@ -4,8 +4,6 @@ namespace GabrielChavezMe\LaraFiel;
 
 use Illuminate\Support\ServiceProvider;
 use Mifiel\ApiClient as ApiMifiel;
-use GabrielChavezMe\LaraFiel\LaraFiel;
-use Mifiel\Document;
 
 class LaraFielServiceProvider extends ServiceProvider
 {
@@ -14,7 +12,6 @@ class LaraFielServiceProvider extends ServiceProvider
         $this->registerMifiel();
     
     }
-
 
     public function boot()
     {
@@ -32,5 +29,4 @@ class LaraFielServiceProvider extends ServiceProvider
         ApiMifiel::url(config('larafiel.mifiel_url'));
 
     }
-
 }
