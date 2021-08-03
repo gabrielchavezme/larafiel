@@ -20,8 +20,6 @@ class Document extends BaseObject {
       unset($this->values->file_path);
     }
     parent::save();
-
-    return true;
   }
 
   public function saveFile($path) {

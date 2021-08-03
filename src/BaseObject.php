@@ -89,8 +89,6 @@ abstract class BaseObject {
     $response = ApiClient::delete(
       static::$resourceName . '/' . $id
     );
-
-    return true;
   }
 
   public function __get($property) {

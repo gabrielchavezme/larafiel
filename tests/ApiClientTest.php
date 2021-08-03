@@ -2,7 +2,7 @@
 
 namespace GabrielChavezMe\Larafiel\Tests;
 
-use GabrielChavezMe\Larafiel\API\ApiClient as Mifiel;
+use GabrielChavezMe\Larafiel\ApiClient as Mifiel;
 use PHPUnit\Framework\TestCase;
 
 class ApiClientTest extends TestCase {
