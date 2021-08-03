@@ -4,28 +4,32 @@
     "authors": [
         {
             "name": "Gabriel Chávez",
-            "email": "contacto@gabrielchavez.me"
+            "email": "contacto@kiuve.com"
         }
     ],
     "require": {
-        "mifiel/api-client": "^1.0"
+        "php": ">=7.3",
+        "acquia/http-hmac-php": "^2.1",
+        "ion-bazan/aliyun-http-signer": "^1.0",
+        "illuminate/support": "^8.0"
     },
     "autoload": {
-        "psr-4" : {
-            "GabrielChavezMe\\LaraFiel\\" : "src/"
+        "psr-4": {
+            "GabrielChavezMe\\Larafiel\\": "src/",
+            "GabrielChavezMe\\Larafiel\\Tests\\": "tests/"
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^5.3"
+        "phpunit/phpunit": "^8.5.5",
+        
+        "mockery/mockery": "^1.4.3",
+        "php-coveralls/php-coveralls": "^2.4"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "GabrielChavezMe\\LaraFiel\\LaraFielServiceProvider"
-            ],
-            "aliases": {
-                "LaraFiel": "GabrielChavezMe\\LaraFiel\\Facades\\LaraFiel"
-            }
+                "GabrielChavezMe\\Larafiel\\Providers\\LarafielServiceProvider"
+            ]
         }
     }
 }
