@@ -21,15 +21,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5.5",
-        
+        "satooshi/php-coveralls": "^1.0",
         "mockery/mockery": "^1.4.3",
         "php-coveralls/php-coveralls": "^2.4"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "GabrielChavezMe\\Larafiel\\Providers\\LarafielServiceProvider"
-            ]
-        }
     }
 }
