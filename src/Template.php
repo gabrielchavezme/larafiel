@@ -1,8 +1,8 @@
 <?php
 
-namespace GabrielChavezMe\Larafiel\API;
+namespace GabrielChavezMe\Larafiel;
 
-use GabrielChavezMe\Larafiel\API\BaseObject;
+use GabrielChavezMe\Larafiel\BaseObject;
 
 class Template extends BaseObject {
   

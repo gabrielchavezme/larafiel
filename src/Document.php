@@ -1,9 +1,9 @@
 <?php
 
-namespace GabrielChavezMe\Larafiel\API;
+namespace GabrielChavezMe\Larafiel;
 
-use GabrielChavezMe\Larafiel\API\BaseObject;
-use GabrielChavezMe\Larafiel\API\Template;
+use GabrielChavezMe\Larafiel\BaseObject;
+use GabrielChavezMe\Larafiel\Template;
 
 class Document extends BaseObject {
   

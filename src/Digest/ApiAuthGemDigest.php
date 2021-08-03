@@ -1,6 +1,6 @@
 <?php
 
-namespace GabrielChavezMe\Larafiel\API\Digest;
+namespace GabrielChavezMe\Larafiel\Digest;
 
 use Acquia\Hmac\RequestSignerInterface;
 use Acquia\Hmac\Request\RequestInterface;

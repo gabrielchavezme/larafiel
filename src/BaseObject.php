@@ -1,6 +1,6 @@
 <?php
 
-namespace GabrielChavezMe\Larafiel\API;
+namespace GabrielChavezMe\Larafiel;
 
 use GabrielChavezMe\Larafiel\Exceptions\ArgumentError;
 

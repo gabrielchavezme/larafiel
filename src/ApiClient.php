@@ -1,13 +1,13 @@
 <?php
 
-namespace GabrielChavezMe\Larafiel\API;
+namespace GabrielChavezMe\Larafiel;
 
 use GuzzleHttp\Psr7\Request;
 use Acquia\Hmac\Guzzle\HmacAuthMiddleware;
 use Acquia\Hmac\RequestSigner;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use GabrielChavezMe\Larafiel\API\Digest\ApiAuthGemDigest;
+use GabrielChavezMe\Larafiel\Digest\ApiAuthGemDigest;
 
 class ApiClient
 {
