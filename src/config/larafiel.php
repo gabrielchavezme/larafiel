@@ -18,5 +18,5 @@ return [
     /**
      * URL de la API que quieres utilizar en tu aplicación
      */
-    'mifiel_url' => env('MIFIEL_URL', 'https://sandbox.mifiel.com/api/v1/')
+    'api_url' => env('MIFIEL_API_URL', 'https://sandbox.mifiel.com/api/v1/')
 ];

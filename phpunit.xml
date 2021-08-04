@@ -33,8 +33,8 @@
         <log type="coverage-clover" target="./build/logs/clover.xml" showUncoveredFiles="true"/>
     </logging>
     <php>
-        <env name="MIFIEL_APP_ID" value=""/>
-        <env name="MIFIEL_APP_SECRET" value=""/>
-        <env name="MIFIEL_APP_URL" value=""/>
+        <env name="MIFIEL_APP_ID" value="385d67ed1271279d521154b28e238af8683272fe"/>
+        <env name="MIFIEL_APP_SECRET" value="Npqjeg4dI9bOQ1UKcYqQrmkm3qFxUYQZb6ccf+bvm0rLcCU0y1z+DdSYcDLuezgZ4W/NvnBR8jzQt9Gm54i0AA=="/>
+        <env name="MIFIEL_API_URL" value="https://sandbox.mifiel.com/api/v1/"/>
     </php>
 </phpunit>

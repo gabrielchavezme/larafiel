@@ -9,9 +9,7 @@
     ],
     "require": {
         "php": ">=7.3",
-        "acquia/http-hmac-php": "^2.1",
-        "ion-bazan/aliyun-http-signer": "^1.0",
-        "illuminate/support": "^8.0"
+        "acquia/http-hmac-php": "^2.1"
     },
     "autoload": {
         "psr-4": {
@@ -19,10 +17,25 @@
             "GabrielChavezMe\\Larafiel\\Tests\\": "tests/"
         }
     },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
     "require-dev": {
         "phpunit/phpunit": "^8.5.5",
-        "satooshi/php-coveralls": "^1.0",
         "mockery/mockery": "^1.4.3",
-        "php-coveralls/php-coveralls": "^2.4"
+        "php-coveralls/php-coveralls": "^2.4",
+        "orchestra/testbench": "^5.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GabrielChavezMe\\Larafiel\\Providers\\LarafielServiceProvider"
+            ],
+            "aliases": {
+                "Larafiel": "GabrielChavezMe\\Larafiel\\Facades\\Larafiel"
+            }
+        }
     }
 }

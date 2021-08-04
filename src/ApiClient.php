@@ -8,28 +8,11 @@ use Acquia\Hmac\RequestSigner;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GabrielChavezMe\Larafiel\Digest\ApiAuthGemDigest;
+use Illuminate\Support\Facades\Log;
 
 class ApiClient
 {
-  private static $appId;
-  private static $appSecret;
   private static $client;
-  private static $url;
-  
-  /**
-   * setTokens
-   *
-   * @param  string $appId
-   * @param  string $appSecret
-   * @return void
-   */
-  public static function setTokens($appId, $appSecret)
-  {
-    self::$appId = $appId;
-    self::$appSecret = $appSecret;
-    self::$url = 'https://sandbox.mifiel.com/api/v1/';
-    self::setClient();
-  }
 
   public static function get($path, $params = array())
   {
@@ -53,6 +36,7 @@ class ApiClient
 
   private static function request($type, $path, $params = array(), $multipart = false)
   {
+    self::setClient();
     $options = [];
     if ($multipart) {
       $options['multipart'] = self::build_multipart($params);
@@ -101,58 +85,29 @@ class ApiClient
     return false;
   }
 
-  public static function url($url = null)
-  {
-    if ($url) {
-      self::$url = $url;
-      self::setClient();
-    } else {
-      return self::$url;
-    }
-  }
-
-  public static function appId($appId = null)
-  {
-    if ($appId) {
-      self::$appId = $appId;
-      self::setClient();
-      return;
-    }
-    return self::$appId;
-  }
-
-  public static function appSecret($appSecret = null)
-  {
-    if ($appSecret) {
-      self::$appSecret = $appSecret;
-      self::setClient();
-      return;
-    }
-    return self::$appSecret;
-  }
-
-  private static function setClient()
+  public static function setClient()
   {
     $signer = new RequestSigner(new ApiAuthGemDigest());
     $signer->setProvider('APIAuth');
 
     $middleware = new HmacAuthMiddleware(
       $signer,
-      self::$appId,
-      self::$appSecret
+      env('MIFIEL_APP_ID'),
+      env('MIFIEL_APP_SECRET')
     );
 
     $stack = HandlerStack::create();
     $stack->push($middleware);
 
     self::$client = new Client([
-      'base_uri' => self::url(),
+      'base_uri' => env('MIFIEL_API_URL'),
       'handler' => $stack,
     ]);
   }
 
   public static function getClient()
   {
+    self::setClient();
     return self::$client;
   }
 }
