@@ -6,14 +6,17 @@ use GabrielChavezMe\Larafiel\BaseObject;
 use GabrielChavezMe\Larafiel\Template;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Log;
 
-class Document extends BaseObject {
-  
+class Document extends BaseObject
+{
+
   protected static $resourceName = 'documents';
   protected $multipart = true;
 
-  public function save() {
+  public function save()
+  {
     unset($this->values->file);
     if (isset($this->values->file_path)) {
       $this->file = [
@@ -27,51 +30,68 @@ class Document extends BaseObject {
 
   public function saveFile($path)
   {
-    if(!$path) {
+    if (!$path) {
       throw new InvalidArgumentException('The path argument is required.');
     }
 
+    $tmpfile = tempnam(sys_get_temp_dir(), 'dl');
+
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/file'
+      static::$resourceName . '/' . $this->id . '/file',
+      [
+        'sink' => $tmpfile
+      ]
     );
 
-    $path = Storage::putFile($path, new File($response->getBody()));
+    $filename = Storage::putFile($path, new File($tmpfile));
 
-    return $path;
+    return $filename;
   }
 
   public function saveFileSigned($path)
   {
-    if(!$path) {
+
+    if (!$path) {
       throw new InvalidArgumentException('The path argument is required.');
     }
 
+    $tmpfile = tempnam(sys_get_temp_dir(), 'dl');
+
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/file_signed'
+      static::$resourceName . '/' . $this->id . '/file_signed',
+      [
+        'sink' => $tmpfile
+      ]
     );
 
-    $path = Storage::putFile($path, new File($response->getBody()));
+    $filename = Storage::putFile($path, new File($tmpfile));
 
-    return $path;
-
+    return $filename;
   }
 
   public function saveXML($path)
   {
-    if(!$path) {
+
+    if (!$path) {
       throw new InvalidArgumentException('The path argument is required.');
     }
 
+    $tmpfile = tempnam(sys_get_temp_dir(), 'dl');
+
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/xml'
+      static::$resourceName . '/' . $this->id . '/xml',
+      [
+        'sink' => $tmpfile
+      ]
     );
 
-    $path = Storage::putFile($path, new File($response->getBody()));
+    $filename = Storage::putFile($path, new File($tmpfile));
 
-    return $path;
+    return $filename;
   }
 
-  public static function createFromTemplate($args) {
+  public static function createFromTemplate($args)
+  {
     $requiredKeys = [
       'template_id' => 'string',
       'name' => 'string',
@@ -87,7 +107,8 @@ class Document extends BaseObject {
     );
   }
 
-  public static function createManyFromTemplate($args) {
+  public static function createManyFromTemplate($args)
+  {
     $requiredKeys = [
       'template_id' => 'string',
       'identifier' => 'string',

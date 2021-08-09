@@ -8,6 +8,8 @@ use Orchestra\Testbench\TestCase;
 
 class DocumentTest extends TestCase
 {
+    public $document;
+
     public function testGetAllDocuments()
     {
         $documents = Document::all();
@@ -30,6 +32,17 @@ class DocumentTest extends TestCase
 
         $document->save();
 
+        $this->document = $document;
+
         $this->assertIsObject($document);
+    }
+
+    public function testDownloadDocument()
+    {
+        $document = Document::find("05291b96-8925-4034-82d7-c42457fcfc25");
+
+        $this->assertIsString($document->saveFile(__DIR__ . '/fixtures'));
+
+        
     }
 }
