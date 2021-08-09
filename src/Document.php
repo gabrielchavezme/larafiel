@@ -6,6 +6,7 @@ use GabrielChavezMe\Larafiel\BaseObject;
 use GabrielChavezMe\Larafiel\Template;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\File;
 
 class Document extends BaseObject {
   
@@ -34,14 +35,13 @@ class Document extends BaseObject {
       static::$resourceName . '/' . $this->id . '/file'
     );
 
-    $path = Storage::putFile($path, $response->getBody());
+    $path = Storage::putFile($path, new File($response->getBody()));
 
     return $path;
   }
 
   public function saveFileSigned($path)
   {
-
     if(!$path) {
       throw new InvalidArgumentException('The path argument is required.');
     }
@@ -50,7 +50,7 @@ class Document extends BaseObject {
       static::$resourceName . '/' . $this->id . '/file_signed'
     );
 
-    $path = Storage::putFile($path, $response->getBody());
+    $path = Storage::putFile($path, new File($response->getBody()));
 
     return $path;
 
@@ -66,7 +66,7 @@ class Document extends BaseObject {
       static::$resourceName . '/' . $this->id . '/xml'
     );
 
-    $path = Storage::putFile($path, $response->getBody());
+    $path = Storage::putFile($path, new File($response->getBody()));
 
     return $path;
   }
