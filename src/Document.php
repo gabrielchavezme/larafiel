@@ -4,6 +4,8 @@ namespace GabrielChavezMe\Larafiel;
 
 use GabrielChavezMe\Larafiel\BaseObject;
 use GabrielChavezMe\Larafiel\Template;
+use Illuminate\Support\Facades\Storage;
+use InvalidArgumentException;
 
 class Document extends BaseObject {
   
@@ -22,25 +24,51 @@ class Document extends BaseObject {
     parent::save();
   }
 
-  public function saveFile($path) {
+  public function saveFile($path)
+  {
+    if(!$path) {
+      throw new InvalidArgumentException('The path argument is required.');
+    }
+
     $response = ApiClient::get(
       static::$resourceName . '/' . $this->id . '/file'
     );
-    file_put_contents($path, $response->getBody());
+
+    $path = Storage::putFile($path, $response->getBody());
+
+    return $path;
   }
 
-  public function saveFileSigned($path) {
+  public function saveFileSigned($path)
+  {
+
+    if(!$path) {
+      throw new InvalidArgumentException('The path argument is required.');
+    }
+
     $response = ApiClient::get(
       static::$resourceName . '/' . $this->id . '/file_signed'
     );
-    file_put_contents($path, $response->getBody());
+
+    $path = Storage::putFile($path, $response->getBody());
+
+    return $path;
+
   }
 
-  public function saveXML($path) {
+  public function saveXML($path)
+  {
+    if(!$path) {
+      throw new InvalidArgumentException('The path argument is required.');
+    }
+
     $response = ApiClient::get(
       static::$resourceName . '/' . $this->id . '/xml'
     );
-    file_put_contents($path, $response->getBody());
+
+    $path = Storage::putFile($path, $response->getBody());
+
+    return $path;
   }
 
   public static function createFromTemplate($args) {
