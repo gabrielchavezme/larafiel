@@ -43,7 +43,7 @@ class Document extends BaseObject
 
     file_put_contents(storage_path('app/public/' . $path . '/' . $filename), $response->getBody());
 
-    return $path . '/' . $filename;
+    return $filename;
   }
 
   public function saveFileSigned($path)
@@ -53,15 +53,14 @@ class Document extends BaseObject
     }
 
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/file_signed',
-      ['stream' => true]
+      static::$resourceName . '/' . $this->id . '/file_signed'
     );
 
     $filename = Str::random(40) . '.pdf';
 
     file_put_contents(storage_path('app/public/' . $path . '/' . $filename), $response->getBody());
 
-    return $path . '/' . $filename;
+    return $filename;
   }
 
   public function saveXML($path)
@@ -78,7 +77,7 @@ class Document extends BaseObject
 
     file_put_contents(storage_path('app/public/' . $path . '/' . $filename), $response->getBody());
 
-    return $path . '/' . $filename;
+    return $filename;
   }
 
   public static function createFromTemplate($args)
