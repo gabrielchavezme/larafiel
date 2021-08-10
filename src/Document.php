@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class Document extends BaseObject
 {
@@ -34,60 +35,46 @@ class Document extends BaseObject
       throw new InvalidArgumentException('The path argument is required.');
     }
 
-    $tmpfile = tempnam(sys_get_temp_dir(), 'dl');
-
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/file',
-      [
-        'sink' => $tmpfile
-      ]
+      static::$resourceName . '/' . $this->id . '/file'
     );
 
-    $filename = Storage::putFile($path, new File($tmpfile));
+    $filename = Str::random(40) . '.pdf';
+    $path = Storage::putFileAs($path, $response->getBody(), $filename);
 
-    return $filename;
+    return $path;
   }
 
   public function saveFileSigned($path)
   {
-
     if (!$path) {
       throw new InvalidArgumentException('The path argument is required.');
     }
 
-    $tmpfile = tempnam(sys_get_temp_dir(), 'dl');
-
     $response = ApiClient::get(
       static::$resourceName . '/' . $this->id . '/file_signed',
-      [
-        'sink' => $tmpfile
-      ]
     );
 
-    $filename = Storage::putFile($path, new File($tmpfile));
+    $filename = Str::random(40) . '.pdf';
+    $path = Storage::putFileAs($path, $response->getBody(), $filename);
 
-    return $filename;
+    return $path;
   }
 
   public function saveXML($path)
   {
-
     if (!$path) {
       throw new InvalidArgumentException('The path argument is required.');
     }
 
-    $tmpfile = tempnam(sys_get_temp_dir(), 'dl');
-
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/xml',
-      [
-        'sink' => $tmpfile
-      ]
+      static::$resourceName . '/' . $this->id . '/xml'
     );
 
-    $filename = Storage::putFile($path, new File($tmpfile));
+    $filename = Str::random(40) . '.xml';
+    $path = Storage::putFileAs($path, $response->getBody(), $filename);
 
-    return $filename;
+    return $path;
   }
 
   public static function createFromTemplate($args)
