@@ -35,20 +35,15 @@ class Document extends BaseObject
       throw new InvalidArgumentException('The path argument is required.');
     }
 
-    $putStream = '';
-
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/file',
-      ['stream' => true]
+      static::$resourceName . '/' . $this->id . '/file'
     );
 
-
     $filename = Str::random(40) . '.pdf';
-    $path = Storage::putFileAs($path, $response->getBody()->getContents(), $filename);
 
-    return $path;
+    file_put_contents(storage_path('app/public/' . $path . '/' . $filename), $response->getBody());
 
-  
+    return $path . '/' . $filename;
   }
 
   public function saveFileSigned($path)
@@ -58,13 +53,15 @@ class Document extends BaseObject
     }
 
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/file_signed', ['stream' => true]
+      static::$resourceName . '/' . $this->id . '/file_signed',
+      ['stream' => true]
     );
 
     $filename = Str::random(40) . '.pdf';
-    $path = Storage::putFileAs($path, $response->getBody()->getContents(), $filename);
 
-    return $path;
+    file_put_contents(storage_path('app/public/' . $path . '/' . $filename), $response->getBody());
+
+    return $path . '/' . $filename;
   }
 
   public function saveXML($path)
@@ -74,13 +71,14 @@ class Document extends BaseObject
     }
 
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/xml', ['stream' => true]
+      static::$resourceName . '/' . $this->id . '/xml'
     );
 
     $filename = Str::random(40) . '.xml';
-    $path = Storage::putFileAs($path, $response->getBody()->getContents(), $filename);
 
-    return $path;
+    file_put_contents(storage_path('app/public/' . $path . '/' . $filename), $response->getBody());
+
+    return $path . '/' . $filename;
   }
 
   public static function createFromTemplate($args)
