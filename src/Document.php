@@ -6,7 +6,7 @@ use GabrielChavezMe\Larafiel\BaseObject;
 use GabrielChavezMe\Larafiel\Template;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -35,14 +35,20 @@ class Document extends BaseObject
       throw new InvalidArgumentException('The path argument is required.');
     }
 
+    $putStream = '';
+
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/file'
+      static::$resourceName . '/' . $this->id . '/file',
+      ['stream' => true]
     );
 
+
     $filename = Str::random(40) . '.pdf';
-    $path = Storage::putFileAs($path, $response->getBody(), $filename);
+    $path = Storage::putFileAs($path, $response->getBody()->getContents(), $filename);
 
     return $path;
+
+  
   }
 
   public function saveFileSigned($path)
@@ -52,11 +58,11 @@ class Document extends BaseObject
     }
 
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/file_signed',
+      static::$resourceName . '/' . $this->id . '/file_signed', ['stream' => true]
     );
 
     $filename = Str::random(40) . '.pdf';
-    $path = Storage::putFileAs($path, $response->getBody(), $filename);
+    $path = Storage::putFileAs($path, $response->getBody()->getContents(), $filename);
 
     return $path;
   }
@@ -68,11 +74,11 @@ class Document extends BaseObject
     }
 
     $response = ApiClient::get(
-      static::$resourceName . '/' . $this->id . '/xml'
+      static::$resourceName . '/' . $this->id . '/xml', ['stream' => true]
     );
 
     $filename = Str::random(40) . '.xml';
-    $path = Storage::putFileAs($path, $response->getBody(), $filename);
+    $path = Storage::putFileAs($path, $response->getBody()->getContents(), $filename);
 
     return $path;
   }

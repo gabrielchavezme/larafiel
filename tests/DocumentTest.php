@@ -41,7 +41,7 @@ class DocumentTest extends TestCase
     {
         $document = Document::find("05291b96-8925-4034-82d7-c42457fcfc25");
 
-        $this->assertIsString($document->saveFile(__DIR__ . '/fixtures'));
+        $this->assertIsString($document->saveFile('fixtures'));
 
         
     }
