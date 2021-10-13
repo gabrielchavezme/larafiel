@@ -60,7 +60,7 @@ class Document extends BaseObject
 
     file_put_contents(storage_path('app/public/' . $path . '/' . $filename), $response->getBody());
 
-    return $filename;
+    return $path . '/' . $filename;
   }
 
   public function saveXML($path)
@@ -77,7 +77,7 @@ class Document extends BaseObject
 
     file_put_contents(storage_path('app/public/' . $path . '/' . $filename), $response->getBody());
 
-    return $filename;
+    return $path . '/' . $filename;
   }
 
   public static function createFromTemplate($args)
